@@ -13,6 +13,19 @@ function draw() {
 
 }
 
+function drawCircle(xCoordinate,yCoodrinate,step,radiusRandomizer){
+  let currentRad = radius+1;
+  for( i =0; i <= 720; i+=step){
+    currentRad += toInt(random(-radiusRandomizer, radiusRandomizer));
+    //make sure the currentRad is never smaler than the iner radius
+    currentRad = currentRad<inerRadius?inerRadius:currentRad;
+    beginShape(LINES);
+    vertex(xCoordinate+inerRadius*cos(i), yCoodrinate+inerRadius*sin(i));
+    vertex(xCoordinate+currentRad*cos(i), yCoodrinate+currentRad*sin(i));
+    endShape();
+  }
+}
+
 function keyPressed() {
   if (key == 's' || key == 'S') saveThumb(650, 350);
 }
