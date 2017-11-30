@@ -64,6 +64,10 @@ function fillTriangle(length){
  for(let i = 0; i <= length/2; i+=5){
     line(0-length/2,-i+length/2,i-length/2,-i+length/2);
   }
+  //the midle stroke 
+     // stroke(0);
+     // strokeWeight(.2);
+  if(length >= 70 && length <=300){line(0,0,-length/2,0);}
 }
 
 function draw() {
