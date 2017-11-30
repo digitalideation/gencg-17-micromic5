@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "first Agent test" 
+title: "Agent?" 
 category: "Experiment" 
 thumb_name: "thumb.jpg"
 ---

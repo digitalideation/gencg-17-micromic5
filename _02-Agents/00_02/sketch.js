@@ -17,45 +17,47 @@ function setup() {
 }
 
 function draw() {
+  stroke(options.strokeColor);
  // background(255);
+  background(255);
   smooth();
-  for(i = 100; i <= width; i+= width/5){
+  for(i = 100; i <= width; i+= width/options.tileCount){
     rectangle(i,200,60,rotator);
   }
   rotator++;
-  //noLoop();
 }
 
 function rectangle(startX,startY,length,rotation){
-  let distance = length/lineCount/2;
+  let distance = length/lineCount;
   fill(255);
   push();
   translate(startX,startY);
   rotate(radians(rotation));
   beginShape();
-    vertex(0, 0);
-    vertex(length, 0);
-    vertex(length, length);
-    vertex(0, length);
+    vertex(-length/2, -length/2);
+    vertex(length-length/2, -length/2);
+    vertex(length-length/2, length-length/2);
+    vertex(-length/2, length-length/2);
   endShape(CLOSE);
   pop();
   noFill();
-  rectangleRecursive(startX+distance,startY+distance,length-length/lineCount,rotation,distance);
+  rectangleRecursive(startX,startY,length,rotation,distance);
 }
 
 function rectangleRecursive(startX,startY,length,rotation,distance){
+  length = length-distance;
   push();
   translate(startX,startY);
   rotate(radians(rotation));
   beginShape();
-    vertex(0, 0);
-    vertex(length, 0);
-    vertex(length, length);
-    vertex(0, length);
+    vertex(-length/2, -length/2);
+    vertex(length-length/2, -length/2);
+    vertex(length-length/2, length-length/2);
+    vertex(-length/2, length-length/2);
   endShape(CLOSE);
   pop();
   if(length > 10){
-    rectangle(startX+distance,startY+distance,length-distance*2,rotation);
+    rectangle(startX,startY,length,rotation,distance);
   }
 }
 
