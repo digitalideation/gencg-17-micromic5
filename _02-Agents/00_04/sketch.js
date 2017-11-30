@@ -19,9 +19,9 @@ function setup() {
 }
 
 function generator(length){
-  line(0,0,0,length);
+ /* line(0,0,0,length);
   line(length/2,length/2,0,0);
-  line(length/2,length/2,0,length);
+  line(length/2,length/2,0,length);*/
   push();
   translate(0,length/2);
   rotate(radians(135));
@@ -51,21 +51,23 @@ function recursiveGenerator(length){
     pop();
   }
   else
-  {/*
-    if(random(0,500)>300)
+  {
+   /* if(random(0,500)>300)
     {
       generator(length-10);
     }*/
  //   else
  //   {
-    //  fillTriangle(length);
- //   }
+ //
+      fillTriangle(length);
+    }
   }
 }
 
 function fillTriangle(length){
-  for(let i = 0; i < length; i+=5){
-    line(100,i,i,i);
+  stroke(100,254,23);
+  for(let i = 0; i < length/2; i+=5){
+    line(0-length/2,i-length/2,i-length/2,i-length/2);
   }
 }
 
