@@ -3,7 +3,7 @@
 
 // Global var
 // The var are initialised in gui.js
-var Initiallength = 600;
+var Initiallength = 4000;
 var test = true;
 var rotator = 0;
 function setup() {
@@ -37,7 +37,7 @@ function recursiveGenerator(length){
   line(-length/2,-length/2,-length/2,length-length/2);
   line(length/2-length/2,length/2-length/2,-length/2,-length/2);
   line(length/2-length/2,length/2-length/2,-length/2,length-length/2);
-  if(length>100)
+  if((length > 100 && random(0,100)>=3)||(random(0,100)>95))
   {
     push();
     translate(-length/2,0);
@@ -52,29 +52,26 @@ function recursiveGenerator(length){
   }
   else
   {
-   /* if(random(0,500)>300)
-    {
-      generator(length-10);
-    }*/
- //   else
- //   {
- //
-      fillTriangle(length);
-    }
+    fillTriangle(length);
   }
 }
 
 function fillTriangle(length){
-  stroke(100,254,23);
-  for(let i = 0; i < length/2; i+=5){
+  stroke(random(0,255),random(0,255),random(0,255));
+  for(let i = 0; i <= length/2; i+=5){
     line(0-length/2,i-length/2,i-length/2,i-length/2);
+  }
+ for(let i = 0; i <= length/2; i+=5){
+    line(0-length/2,-i+length/2,i-length/2,-i+length/2);
   }
 }
 
 function draw() {
-    translate(200,50);
+    smooth();
+    background(255);
+    translate(0,-1500);
     generator(Initiallength);
-    rotator++;
+    noLoop();
 }
 
 function keyPressed() {
