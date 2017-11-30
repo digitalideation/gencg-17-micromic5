@@ -5,6 +5,7 @@
 // The var are initialised in gui.js
 var lineCount = 6
 var rotator = 0;
+var randomSeedValue;
 function setup() {
   // Canvas setup
   canvas = createCanvas(windowWidth, windowHeight);
@@ -14,12 +15,11 @@ function setup() {
   pixelDensity(density);
   // Init var
   // The var are initialised in gui.js
-  
+  randomSeedValue = random(0,255);
 }
 
 function draw() {
-  randomSeed(0);
-  increaseLength = 0;
+  randomSeed(randomSeedValue);
   stroke(options.strokeColor);
  // background(255);
   background(255);
