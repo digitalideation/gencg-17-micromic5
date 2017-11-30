@@ -14,9 +14,12 @@ function setup() {
   pixelDensity(density);
   // Init var
   // The var are initialised in gui.js
+  
 }
 
 function draw() {
+  randomSeed(0);
+  increaseLength = 0;
   stroke(options.strokeColor);
  // background(255);
   background(255);

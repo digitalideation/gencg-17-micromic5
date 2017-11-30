@@ -1,6 +1,6 @@
 var options = {
   actRandomSeed: 0,
-  tileCount: 10,
+  tileCount: 23,
   bgAlpha: 255, 
   circleLineColor: 255, 
   strokeColor: [255, 120, 0], //RGB   
