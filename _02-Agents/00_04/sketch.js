@@ -3,7 +3,9 @@
 
 // Global var
 // The var are initialised in gui.js
-
+var Initiallength = 600;
+var test = true;
+var rotator = 0;
 function setup() {
   // Canvas setup
   canvas = createCanvas(windowWidth, windowHeight);
@@ -12,11 +14,65 @@ function setup() {
   var density = displayDensity();
   pixelDensity(density);
   // Init var
-  // The var are initialised in gui.js
+  // The var are initialised in gui.js);
+  noFill();
+}
+
+function generator(length){
+  line(0,0,0,length);
+  line(length/2,length/2,0,0);
+  line(length/2,length/2,0,length);
+  push();
+  translate(0,length/2);
+  rotate(radians(135));
+  recursiveGenerator(length*sqrt(2)/2);
+  pop();
+  push();
+  translate(0,length/2);
+  rotate(radians(225));
+  recursiveGenerator(length*sqrt(2)/2);
+  pop();
+}
+function recursiveGenerator(length){
+  line(-length/2,-length/2,-length/2,length-length/2);
+  line(length/2-length/2,length/2-length/2,-length/2,-length/2);
+  line(length/2-length/2,length/2-length/2,-length/2,length-length/2);
+  if(length>100)
+  {
+    push();
+    translate(-length/2,0);
+    rotate(radians(225));
+    recursiveGenerator(length*sqrt(2)/2);
+    pop();
+    push();
+    translate(-length/2,0);
+    rotate(radians(135));
+    recursiveGenerator(length*sqrt(2)/2);
+    pop();
+  }
+  else
+  {/*
+    if(random(0,500)>300)
+    {
+      generator(length-10);
+    }*/
+ //   else
+ //   {
+    //  fillTriangle(length);
+ //   }
+  }
+}
+
+function fillTriangle(length){
+  for(let i = 0; i < length; i+=5){
+    line(100,i,i,i);
+  }
 }
 
 function draw() {
-
+    translate(200,50);
+    generator(Initiallength);
+    rotator++;
 }
 
 function keyPressed() {
