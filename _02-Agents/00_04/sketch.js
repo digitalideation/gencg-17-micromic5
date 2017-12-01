@@ -37,7 +37,7 @@ function recursiveGenerator(length){
   line(-length/2,-length/2,-length/2,length-length/2);
   line(length/2-length/2,length/2-length/2,-length/2,-length/2);
   line(length/2-length/2,length/2-length/2,-length/2,length-length/2);
-  if((length > 100 && random(0,100)>=3)||(random(0,100)>95))
+  if((length > 100 && random(0,100)>=3)||(length < 100 && random(0,100)>95))
   {
     push();
     translate(-length/2,0);
@@ -64,7 +64,7 @@ function fillTriangle(length){
  for(let i = 0; i <= length/2; i+=5){
     line(0-length/2,-i+length/2,i-length/2,-i+length/2);
   }
-  //the midle stroke 
+  //the midle stroke  works only with initial length 4000
      // stroke(0);
      // strokeWeight(.2);
   if(length >= 70 && length <=300){line(0,0,-length/2,0);}
@@ -75,7 +75,7 @@ function draw() {
     background(255);
     translate(0,-1500);
     generator(Initiallength);
-    noLoop();
+    //noLoop();
 }
 
 function keyPressed() {
