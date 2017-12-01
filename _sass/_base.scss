@@ -42,10 +42,10 @@ p {
   line-height: 1.5;
   margin-bottom: 20px;
 }
-/*
+
 .canvas-container {
   padding-top: 45px;
-}*/
+}
 
 .bg-primary {
   background-color: $theme-primary;
@@ -358,4 +358,8 @@ img::-moz-selection {
 
 body {
   -webkit-tap-highlight-color: $theme-dark;
+}
+
+.dg.a{
+  margin-top: 45px !important;
 }

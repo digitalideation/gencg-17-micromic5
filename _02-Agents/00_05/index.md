@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: right-angled isosceles
+title: Spaceship
 category: "Experiment" 
 thumb_name: "thumb.jpg"
 ---
