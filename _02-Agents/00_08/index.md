@@ -1,7 +1,7 @@
 ---
 layout: sketch
-title: Fancy lines
-category: "No idea what I have done" 
+title: seeking purpose
+category: "Experiment" 
 thumb_name: "thumb.jpg"
 ---
 
