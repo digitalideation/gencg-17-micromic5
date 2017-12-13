@@ -13,6 +13,7 @@ let idCounter = 0;
 let count = 20;
 let countY = 4;
 let size = 20;
+let speed = 0.1;
 function setup() {
 	// Canvas setup
 	canvas = createCanvas(windowWidth, windowHeight);
@@ -24,16 +25,13 @@ function setup() {
 	// The var are initialised in gui.js);
 	noFill();
 	let counter = 20;
+	//spawner has to change for simon
 	for(i = 20; i <= width-20; i+=width/(count)){
 		for(j = 20; j <= height-20; j += height /countY){
-			agents.push(new agent(i,j, createVector(random(0,20)-10,random(0,20)-10), .1,random(3,100/(count*countY/size)),random(3,100/(count*countY/size))));
+			agents.push(new agent(i,j, createVector(random(0,20)-10,random(0,20)-10), speed,random(3,100/(count*countY/size)),random(3,100/(count*countY/size))));
 		}
 	}
 	fill(200,230,200);
-	/*for(i=0;i<2;i++){
-	agents.push(new agent(50,50, createVector(random(0,20)-10,random(0,20)-10), .1,50,50));
-	agents.push(new agent(75,75, createVector(random(0,20)-10,random(0,20)-10), .1,25,25));
-	}*/
 }
 
 class agent{
@@ -47,33 +45,18 @@ class agent{
 		this.strokecol = 0;
 		idCounter++;
 		this.id = idCounter;
-		/*collisionPointsArray.forEach(function(coll){
-		while((this.positionX <= coll.x+coll.width && this.positionX+this.width >= coll.x && this.positionY <= coll.y + coll.height && this.positionY+this.height >= coll.y))
-			this.positionY++;
-			this.positionX++;
-			console.log("stillcolliding");
-		},this);
-		collisionPointsArray.push({id:this.id,x:this.positionX,y:this.positionY,width:this.width,height:this.height,vector:this.vector.copy()});
-	*/}
+	}
 
 	calculateCollision(){
 		this.positionX += this.vector.x*this.length;
 		this.positionY += this.vector.y*this.length;
-		/*if(collisionPointsArray.length > 0){
-		}*/
 		collisionPointsArray.push({id:this.id,x:this.positionX,y:this.positionY,width:this.width,height:this.height,vector:this.vector.copy()});
-	//	calculateBetweenPointsIntoArray(this.positionX, this.positionY, this.nextPositionX, this.nextPositionY,this.vector);
 	}
 
 	update(){
 		collisionPointsArray.forEach(function(coll){
-				//let posX = this.vector.x>0?true:false;
-				//let posY = this.vector.y>0?true:false;
-				if(coll.id != this.id &&(/*posX && posY &&*/ this.positionX <= coll.x+coll.width && this.positionX+this.width >= coll.x && this.positionY <= coll.y + coll.height && this.positionY+this.height >= coll.y)
-					/*|| (!posX && posY && this.nextPositionX <= coll.x+coll.width && this.positionX >= coll.x && this.positionY <= coll.y + coll.height && this.nextPositionY >= coll.y)
-					|| (posX && !posY && this.positionX <= coll.x+coll.width && this.nextPositionX >= coll.x && this.nextPositionY <= coll.y + coll.height && this.positionY >= coll.y)
-					|| (!posX && !posY && this.nextPositionX <= coll.x+coll.width && this.positionX >= coll.x && this.nextPositionY <= coll.y + coll.height && this.positionY >= coll.y)*/){
-					//console.log("this vector: "+this.vector+"    ...   colvec:"+coll.vector);
+				if(coll.id != this.id &&(this.positionX <= coll.x+coll.width && this.positionX+this.width >= coll.x && this.positionY <= coll.y + coll.height && this.positionY+this.height >= coll.y))
+				{
 					if(this.vector.x > 0 && coll.vector.x > 0){
 						if(this.vector.x > coll.vector.x){
 							this.vector.x *=-1;
@@ -101,16 +84,7 @@ class agent{
 					}else{
 						this.vector.y *=-1;
 					}
-					/*else
-						this.vector.x *=-1;
-						this.vector.y *=-1;
-					}*/
 				}
-				/*let a = 1;
-				a++;
-				while(a<15){
-					a++;
-				}*/
 			},this);
 		if(this.positionX>=width || this.positionX <=0){
 			this.vector.x*=-1;
@@ -118,37 +92,10 @@ class agent{
 		if(this.positionY>=height || this.positionY <=0){
 			this.vector.y*=-1;
 		}
-		/*if(testing){
-			console.log(collisionPointsArray);
-			console.log(Math.floor(this.positionX*1000)+" "+Math.floor(this.positionY*1000));
-		}*/
-		/*let foundCollisions = collisionPointsArray.filter(
-			function(val,thisArg){
-				return val.x == Math.floor(this.positionX*100) && val.y == Math.floor(this.positionY*100);
-			}.bind(this)
-		);*/
-		//if(this.debugId == 1){
-			//console.log( get(mouseX, mouseY));
-		//	console.log(get(50,50,10,10));
-			//console.log(collisionPointsArray);
-		//	console.log(foundCollisions.length);
-		//	console.log("XFront: "+Math.floor(this.positionX*100)+"      YFront: "+Math.floor(this.positionY*100));
-		//}
-		/*if(foundCollisions.length>1){
-			this.strokecol=50;
-			console.log("collisionDetected");
-		}*/
-		//testing = false;
 	}
 	draw(){
-		/*if(this.strokecol == 50){
-			stroke(255,0,0);
-		}else{
-			stroke(this.strokecol,0,0);
-		}*/
 		stroke(200,210,200);
 		rect(this.positionX,this.positionY,this.width,this.height);
-		//line(toInt(this.positionX),toInt(this.positionY),toInt(this.nextPositionX),toInt(this.nextPositionY));
 	}
 }
 
@@ -163,31 +110,6 @@ function draw() {
 		agent1.draw();
 	});
 }
-/*
-function calculateBetweenPointsIntoArray(xOld, yOld, xNew, yNew, vector){
-	//arr.push(1);
-	let found = false;
-	let normalizedVector = vector.normalize();
-	let directionXPositiv = vector.x>0?true:false;
-	let directionYPositiv = vector.y>0?true:false;
-	while(!found){
-		collisionPointsArray.push({x:Math.floor(xOld*100),y:Math.floor(yOld*100)});
-		xOld=normalizedVector.x+xOld;
-		yOld=normalizedVector.y+yOld;
-		if((xOld>xNew && directionXPositiv) ||
-			(xOld<xNew && !directionXPositiv) ||
-			(yOld>yNew && directionYPositiv) ||
-			(yOld<yNew && !directionYPositiv)){
-			found = true;
-			collisionPointsArray.push({x:Math.floor(xOld*100),y:Math.floor(yOld*100)});
-			//test if newPoint is reached
-			if(Math.floor(xOld*100) == Math.floor(xNew*100)){
-				console.log("same");
-			}
-		}
-	}
-}
-*/
 function keyPressed() {
 	if (key == 's' || key == 'S') saveThumb(650, 350);
 }
