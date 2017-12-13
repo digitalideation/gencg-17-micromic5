@@ -3,6 +3,8 @@ layout: sketch
 title: Fancy lines
 category: "No idea what I have done" 
 thumb_name: "thumb.jpg"
+includes:
+  - src: "sketch.js"
 ---
 
 <!-- 
