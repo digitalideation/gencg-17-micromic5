@@ -3,6 +3,8 @@ layout: sketch
 title: "first Agent test" 
 category: "Experiment" 
 thumb_name: "thumb.jpg"
+includes:
+  - src: "sketch.js"
 ---
 
 <!-- 
