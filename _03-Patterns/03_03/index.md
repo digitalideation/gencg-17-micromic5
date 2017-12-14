@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "Flower" 
+title: Finally a flower
 category: "Experiment" 
 thumb_name: "thumb.jpg"
 includes:

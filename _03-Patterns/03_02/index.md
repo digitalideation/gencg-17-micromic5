@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "Agent?" 
+title: "Thats how you rotate" 
 category: "Experiment" 
 thumb_name: "thumb.jpg"
 includes:
