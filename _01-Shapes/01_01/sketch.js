@@ -1,9 +1,10 @@
-// Based on the code P_2_0_02.pde from
-// Generative Gestaltung, ISBN: 978-3-87439-759-9
-
 // Global var
-var b = 255, p = false;
- 
+var radius = 80;
+var inerRadius = 70;
+var horizontalCount =6;
+var verticalCount = 10;
+var randomRadiusSize = 6;
+var stepSize = 5;
 function setup() {
   // Canvas setup
   canvas = createCanvas(windowWidth, windowHeight);
@@ -11,52 +12,36 @@ function setup() {
   // Detect screen density (retina)
   var density = displayDensity();
   pixelDensity(density);
-  // Colors and drawing modes
-  background(255);
-  smooth();
-  // Init Var
-}
-
-function draw() {
-  smooth();
-  noFill();
-
-  if (p) {
-    b = random(255);
-    push();
-
-    translate(width / 2, height / 2);
-
-    var circleResolution = toInt(map(mouseY + 100, 0, height, 2, 10));
-    var radius = mouseX - width / 2 + 0.5;
-    var angle = TWO_PI / circleResolution;
-
-    strokeWeight(2);
-    stroke(b, 25);
-
-    beginShape();
-    for (i = 0; i <= circleResolution; i++) {
-      var x = 0 + cos(angle * i) * radius;
-      var y = 0 + sin(angle * i) * radius;
-      vertex(x, y);
+  for(let k = 0; k <= width; k+=width/verticalCount){
+    for(let z = 0; z <= height; z+=height/horizontalCount){
+      stroke(random(0,250), random(0,250), random(0,250));
+      drawCircle(k,z,stepSize,randomRadiusSize);
     }
-    endShape();
-
-    pop();
   }
 }
 
-function mousePressed() {
-  p = true;
+function draw() {
+  //background(255);
+  smooth();
+  noFill();
 }
 
-function mouseReleased() {
-  p = false;
+function drawCircle(xCoordinate,yCoodrinate,step,radiusRandomizer){
+  let currentRad = radius;
+  for( i =0; i <= 1440; i+=step){
+    if(radiusRandomizer*2 > (radius-inerRadius)){
+      currentRad += random(-(radius-inerRadius), radiusRandomizer)
+    }else{
+      currentRad += random(-radiusRandomizer, radiusRandomizer)
+    }
+    beginShape(LINES);
+    vertex(xCoordinate+inerRadius*cos(i), yCoodrinate+inerRadius*sin(i));
+    vertex(xCoordinate+currentRad*cos(i), yCoodrinate+currentRad*sin(i));
+    endShape();
+  }
 }
 
 function keyPressed() {
-  // Clear sketch
-  if (keyCode === 32) background(255) // 32 = SPACE BAR 
   if (key == 's' || key == 'S') saveThumb(650, 350);
 }
 

@@ -1,10 +1,8 @@
 ---
 layout: sketch
-title: "01_02" 
+title: "Circle chaos" 
 category: "Experiment" 
 thumb_name: "thumb.jpg"
-includes:
-  - src: "sketch.js"
 ---
 
 <!-- 

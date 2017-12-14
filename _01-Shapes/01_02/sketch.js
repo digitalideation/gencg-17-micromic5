@@ -1,10 +1,10 @@
-// Based on the code P_2_0_03.pde from
-// Generative Gestaltung, ISBN: 978-3-87439-759-9
-
 // Global var
-var b = 255, p = false;
-var strokeColor, canvas;
- 
+var radius = 80;
+var inerRadius = 30;
+var horizontalCount =5;
+var verticalCount = 8;
+var randomRadiusSize = 15;
+var stepSize = 5;
 function setup() {
   // Canvas setup
   canvas = createCanvas(windowWidth, windowHeight);
@@ -12,70 +12,36 @@ function setup() {
   // Detect screen density (retina)
   var density = displayDensity();
   pixelDensity(density);
-  // Colors and drawing modes
-  colorMode(HSL, 360, 100, 100, 100);
-  background(360);
-  strokeColor = color(0, 10);
-  smooth();
-  // Init Var
+  for(let k = 0; k <= width; k+=width/verticalCount){
+    for(let z = 0; z <= height; z+=height/horizontalCount){
+      stroke(random(0,250), random(0,250), random(0,250));
+      drawCircle(k,z,stepSize,randomRadiusSize);
+    }
+  }
 }
 
 function draw() {
+  //background(255);
   smooth();
   noFill();
+}
 
-  if (p) {
-    b = random(255);
-    push();
-
-    translate(width / 2, height / 2);
-
-    var circleResolution = toInt(map(mouseY + 100, 0, height, 2, 10));
-    var radius = mouseX - width / 2 + 0.5;
-    var angle = TWO_PI / circleResolution;
-
-    strokeWeight(2);
-    stroke(strokeColor);
-
-    beginShape();
-    for (i = 0; i <= circleResolution; i++) {
-      var x = 0 + cos(angle * i) * radius;
-      var y = 0 + sin(angle * i) * radius;
-      vertex(x, y);
-    }
+function drawCircle(xCoordinate,yCoodrinate,step,radiusRandomizer){
+  let currentRad = radius+1;
+  for( i =0; i <= 720; i+=step){
+    currentRad += toInt(random(-radiusRandomizer, radiusRandomizer));
+    //make sure the currentRad is never smaler than the iner radius
+    currentRad = currentRad<inerRadius?inerRadius:currentRad;
+    beginShape(LINES);
+    vertex(xCoordinate+inerRadius*cos(i), yCoodrinate+inerRadius*sin(i));
+    vertex(xCoordinate+currentRad*cos(i), yCoodrinate+currentRad*sin(i));
     endShape();
-
-    pop();
   }
-}
-
-function mousePressed() {
-  p = true;
-}
-
-function mouseReleased() {
-  p = false;
 }
 
 function keyPressed() {
-  // Clear sketch
-  if (keyCode === 32) background(255) // 32 = SPACE BAR 
   if (key == 's' || key == 'S') saveThumb(650, 350);
-  //
-  switch (key) {
-    case '1':
-      strokeColor = color(0, 50, 50, 10);
-      break;
-    case '2':
-      strokeColor = color(192, 100, 64, 10);
-      break;
-    case '3':
-      strokeColor = color(52, 100, 71, 10);
-      break;
-  }
-
 }
-
 
 // Tools
 

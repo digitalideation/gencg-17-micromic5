@@ -28,7 +28,7 @@ function setup() {
 	//spawner has to change for simon
 	for(i = 20; i <= width-20; i+=width/(count)){
 		for(j = 20; j <= height-20; j += height /countY){
-			agents.push(new agent(i,j, createVector(random(0,20)-10,random(0,20)-10), speed,random(3,100/(count*countY/size)),random(3,100/(count*countY/size))));
+			agents.push(new agent(i,j, createVector(random(0,20)-10,random(0,20)-10), ,random(3,100/(count*countY/size)),random(3,100/(count*countY/size))));
 		}
 	}
 	fill(200,230,200);
