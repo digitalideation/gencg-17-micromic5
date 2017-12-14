@@ -55,6 +55,7 @@ class agent{
 
 function draw() {
 		background(255,255,255,options.bgAlpha);
+		stroke(options.color);
 		let collisionArray = [];
 		agents.forEach(function(agent1){
 			agent1.calculateCollision();
