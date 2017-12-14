@@ -31,7 +31,6 @@ function setup() {
 			agents.push(new agent(i,j, createVector(random(0,20)-10,random(0,20)-10),speed ,random(3,100/(count*countY/size)),random(3,100/(count*countY/size))));
 		}
 	}
-	fill(200,230,200);
 }
 
 class agent{
@@ -94,7 +93,8 @@ class agent{
 		}
 	}
 	draw(){
-		stroke(200,210,200);
+		fill(options.color);
+		stroke(options.color);
 		rect(this.positionX,this.positionY,this.width,this.height);
 	}
 }
@@ -104,7 +104,7 @@ function draw() {
 	agents.forEach(function(agent1){
 		agent1.calculateCollision();
 	});
-	background(255,255,255,options.bgAlpha);
+	background(options.backgroundColor[0],options.backgroundColor[1],options.backgroundColor[2],options.bgAlpha);
 	agents.forEach(function(agent1){
 		agent1.update();
 		agent1.draw();

@@ -6,6 +6,8 @@
 var lineCount = 6
 var rotator = 0;
 var randomSeedValue;
+var tileCount = options.tileCount;
+var strokeColor = options.strokeColor;
 function setup() {
   // Canvas setup
   canvas = createCanvas(windowWidth, windowHeight);
@@ -16,31 +18,82 @@ function setup() {
   // Init var
   // The var are initialised in gui.js
   randomSeedValue = random(0,255);
+
+  randomSeed(randomSeedValue);
+  stroke(options.strokeColor);
+  // background(255);
+    background(255);
+    smooth();
+    for(i = 0; i <= width/2; i+= width/options.tileCount){
+      for(j = 0; j <= height/2; j+= height/options.tileCount){
+        rectangle(i,j,random(50,150),random(0,360));
+      }
+       for(j = height; j >= height/2; j-= height/options.tileCount){
+        rectangle(i,j,random(50,150),random(0,360));
+      }
+    }
+    for(i = width; i >= width/2; i-= width/options.tileCount){
+      for(j = 0; j <= height/2; j+= height/options.tileCount){
+        rectangle(i,j,random(50,150),random(0,360));
+      }
+       for(j = height; j >= height/2; j-= height/options.tileCount){
+        rectangle(i,j,random(50,150),random(0,360));
+      }
+    }
+   // rotator++;
 }
 
 function draw() {
-  randomSeed(randomSeedValue);
-  stroke(options.strokeColor);
- // background(255);
-  background(255);
-  smooth();
-  for(i = 0; i <= width/2; i+= width/options.tileCount){
-    for(j = 0; j <= height/2; j+= height/options.tileCount){
-      rectangle(i,j,random(50,150),random(0,360));
+  if(strokeColor != options.strokeColor){
+    stroke(options.strokeColor);
+  // background(255);
+    background(255);
+    smooth();
+    for(i = 0; i <= width/2; i+= width/options.tileCount){
+      for(j = 0; j <= height/2; j+= height/options.tileCount){
+        rectangle(i,j,random(50,150),random(0,360));
+      }
+       for(j = height; j >= height/2; j-= height/options.tileCount){
+        rectangle(i,j,random(50,150),random(0,360));
+      }
     }
-     for(j = height; j >= height/2; j-= height/options.tileCount){
-      rectangle(i,j,random(50,150),random(0,360));
+    for(i = width; i >= width/2; i-= width/options.tileCount){
+      for(j = 0; j <= height/2; j+= height/options.tileCount){
+        rectangle(i,j,random(50,150),random(0,360));
+      }
+       for(j = height; j >= height/2; j-= height/options.tileCount){
+        rectangle(i,j,random(50,150),random(0,360));
+      }
     }
+   // rotator++;
+    tileCount = options.tileCount;
+    strokeColor = options.strokeColor;
   }
-  for(i = width; i >= width/2; i-= width/options.tileCount){
-    for(j = 0; j <= height/2; j+= height/options.tileCount){
-      rectangle(i,j,random(50,150),random(0,360));
+  else if(tileCount != options.tileCount){
+    stroke(options.strokeColor);
+  // background(255);
+    background(255);
+    smooth();
+    for(i = 0; i <= width/2; i+= width/options.tileCount){
+      for(j = 0; j <= height/2; j+= height/options.tileCount){
+        rectangle(i,j,random(50,150),random(0,360));
+      }
+       for(j = height; j >= height/2; j-= height/options.tileCount){
+        rectangle(i,j,random(50,150),random(0,360));
+      }
     }
-     for(j = height; j >= height/2; j-= height/options.tileCount){
-      rectangle(i,j,random(50,150),random(0,360));
+    for(i = width; i >= width/2; i-= width/options.tileCount){
+      for(j = 0; j <= height/2; j+= height/options.tileCount){
+        rectangle(i,j,random(50,150),random(0,360));
+      }
+       for(j = height; j >= height/2; j-= height/options.tileCount){
+        rectangle(i,j,random(50,150),random(0,360));
+      }
     }
+   // rotator++;
+  tileCount = options.tileCount;
+    strokeColor = options.strokeColor;
   }
- // rotator++;
 }
 
 function rectangle(startX,startY,length,rotation){

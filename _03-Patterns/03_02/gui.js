@@ -1,20 +1,10 @@
 var options = {
-  actRandomSeed: 0,
-  tileCount: 10,
-  bgAlpha: 255, 
-  circleLineColor: 255, 
-  strokeColor: [255, 120, 0], //RGB   
-  circleLineAlpha: 50,
-  fill: false,
+  tileCount: 5,
+  strokeColor: [255, 120, 0],
 };
 
 window.onload = function() {
   var gui = new dat.GUI();
-  gui.add(options, 'actRandomSeed');
-  gui.add(options, 'tileCount').min(1).max(100).step(1);
-  gui.add(options, 'bgAlpha').min(0).max(255).step(.5);
-  gui.add(options, 'circleLineColor').min(0).max(255).step(1);
-  gui.add(options, 'circleLineAlpha').min(0).max(255).step(.5);
-  gui.add(options, 'fill');
+  gui.add(options, 'tileCount').min(1).max(15).step(1);
   gui.addColor(options, 'strokeColor');
 };
