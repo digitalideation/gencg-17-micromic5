@@ -3,6 +3,8 @@ layout: sketch
 title: "Circle chaos" 
 category: "Experiment" 
 thumb_name: "thumb.jpg"
+includes:
+  - src: "sketch.js"
 ---
 
 <!-- 
