@@ -6,7 +6,7 @@
 "strict mode";
 //Ernst Junior
 var agents = [];
-var count = options.count;
+var count;
 
 function setup() {
 	// Canvas setup
@@ -18,6 +18,7 @@ function setup() {
 	// Init var
 	// The var are initialised in gui.js);
 	noFill();
+	count = options.agentCount;
 	for(i = 20; i <= width-20; i+=width/count){
 		agents.push(new agent(i,random(20,height-20), createVector(random(0,20)-10, random(0,20)-10, 0),random(0,5)));
 	}
