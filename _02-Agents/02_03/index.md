@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: seeking purpose
+title: Rectangle Agent
 category: "Experiment" 
 thumb_name: "thumb.jpg"
 includes:

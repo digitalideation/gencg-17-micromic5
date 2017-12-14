@@ -1,7 +1,7 @@
 ---
 layout: sketch
 title: Fancy lines
-category: "No idea what I have done" 
+category: "Experiment" 
 thumb_name: "thumb.jpg"
 includes:
   - src: "sketch.js"

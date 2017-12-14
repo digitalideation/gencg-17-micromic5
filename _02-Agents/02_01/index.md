@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: Line Chaos
+title: "Line agents"
 category: "Experiment" 
 thumb_name: "thumb.jpg"
 includes:

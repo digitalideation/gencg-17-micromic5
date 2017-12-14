@@ -17,3 +17,6 @@ collections:
     
   02-Agents:
     output: true
+
+  03-Patterns:
+    output: true
