@@ -1,5 +1,5 @@
 let options = {
-	randomSeed: 2015,
+	randomSeed: new Date().getTime() % 100000,
 	numberOfAgents: 3,
 	moveSpeed: 3,
 	// maxSpeed: 5,
@@ -12,7 +12,7 @@ let options = {
 	tileHeight: 150,
 	agentColor: [66, 230, 220], //RGB
 	backgroundColor: [0, 0, 0], //RGB
-	backgroundAlpha: 7, //0 - 100
+	backgroundAlpha: 5, //0 - 100
 	randomPlacement: false,
 	useRadius: false,
 	sendToNeighbor: true,

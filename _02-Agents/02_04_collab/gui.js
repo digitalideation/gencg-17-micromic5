@@ -1,6 +1,6 @@
 let options = {
-	randomSeed: 2018,
-	numberOfAgents: 1,
+	randomSeed: new Date().getTime() % 100000,
+	numberOfAgents: 2,
 	moveSpeed: 2,
 	// maxSpeed: 5,
 	agentFatness: 3,
@@ -8,8 +8,8 @@ let options = {
 	timeToLive: 100,
 	// tileWidth: 200,
 	// tileHeight: 200,
-	tileWidth: 150,
-	tileHeight: 150,
+	tileWidth: 90,
+	tileHeight: 90,
 	agentColor: [66, 230, 220], //RGB
 	backgroundColor: [0, 0, 0], //RGB
 	backgroundAlpha: 30, //0 - 100
@@ -32,7 +32,7 @@ window.onload = function()
 		.gui
 		.add(options, 'randomSeed')
 		.min(1)
-		.max(10000)
+		.max(100000)
 		.step(1);
 	let numberOfAgents = window
 		.gui
