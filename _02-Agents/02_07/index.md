@@ -1,7 +1,7 @@
 ---
 layout: sketch
 title: "Agent catcher"
-category: "Experiment"
+category: "Excuisite corpse"
 thumb_name: "thumb.jpg"
 includes:
   - src: "gui.js"

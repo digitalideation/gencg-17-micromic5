@@ -1,7 +1,7 @@
 ---
 layout: sketch
 title: "multiagents Snapshot"
-category: "Experiment"
+category: "Excuisite corpse"
 thumb_name: "thumb.jpg"
 includes:
   - src: "gui.js"
