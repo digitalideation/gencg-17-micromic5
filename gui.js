@@ -1,9 +1,9 @@
 let options = {
 	randomSeed: new Date().getTime() % 100000,
-	numberOfAgents: 3,
+	numberOfAgents: 2,
 	moveSpeed: 3,
 	// maxSpeed: 5,
-	agentFatness: 3,
+	agentFatness: 2,
 	// turnRadius: Math.PI/32,
 	timeToLive: 100,
 	// tileWidth: 200,
@@ -12,7 +12,7 @@ let options = {
 	tileHeight: 150,
 	agentColor: [66, 230, 220], //RGB
 	backgroundColor: [0, 0, 0], //RGB
-	backgroundAlpha: 5, //0 - 100
+	backgroundAlpha: 15, //0 - 100
 	randomPlacement: false,
 	useRadius: false,
 	sendToNeighbor: true,
