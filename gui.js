@@ -1,9 +1,9 @@
 let options = {
 	randomSeed: new Date().getTime() % 100000,
 	numberOfAgents: 2,
-	moveSpeed: 3,
+	moveSpeed: 1.5,
 	// maxSpeed: 5,
-	agentFatness: 2,
+	agentFatness: 3,
 	// turnRadius: Math.PI/32,
 	timeToLive: 100,
 	// tileWidth: 200,
