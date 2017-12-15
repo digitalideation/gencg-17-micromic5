@@ -1,105 +1,340 @@
-// Noise generated circle
+"use strict";
 
 // Global var
-// Some of the var might be initialised in gui.js
-var canvas, backgroundGrey, radius;
-var actRandomSeed, count, points, increment;
+let mouseInputMode = 0;
+//let cycleInterval;
+let agents = [];
 
-function setup() {
-  // Canvas setup
-  canvas = createCanvas(windowWidth, windowHeight);
-  canvas.parent("p5Container");
-  // Detect screen density (retina)
-  // Comment it out if the sketch is too slow
-  var density = displayDensity();
-  pixelDensity(density);
-  // Init var
-  // some of the var are initialised in gui.js
-  backgroundGrey = 0;
-  count = 150;
-  points = [count];
-  background(backgroundGrey);
-  radius = 20;
-  increment = +1;
+function setup()
+{
+	// Canvas setup
+	canvas = createCanvas(windowWidth, windowHeight);
+	canvas.parent("p5Container");
+	// Detect screen density (retina)
+	var density = displayDensity();
+	pixelDensity(density);
+
+	randomSeed(options.randomSeed);
+
+	spawnAgents();
+
+	background(options.backgroundColor, options.backgroundAlpha);
 }
 
-function draw() {
-  // background(backgroundGrey, 20);
-  smooth();
+function draw()
+{
+	if (window.somethingChanged)
+	{
+		// draw
+		background(
+			options.backgroundColor[0],
+			options.backgroundColor[1],
+			options.backgroundColor[2],
+			options.backgroundAlpha);
+		stroke(color(options.agentColor));
+		strokeWeight(options.agentFatness);
+		fill(options.agentColor);
+		agents.forEach( function ( element, index, arr)
+		{
+			element.drawLocation();
+		});
 
-  // Create points array
-  let faderX = .1;
-  let t = millis()/1000;
-  // let r = map(mouseY,0,height,10,radius);
-  if (radius>width/1.7 && radius>height/1.7) increment = -increment;
-  else if (radius<20) increment = -increment;
-  radius += increment; 
-  let angle = radians(360/count);
+		// clean and restart dead Agents
+		let amountKilled = cleanDeadAgents(agents, true);
+		amountKilled.forEach( function (element, index, arr)
+		{
+			// let agent;
 
-  for (let i=0; i<count; i++){
-    let radiusRand = radius - noise(t, i*faderX)*50;
-    let x = width/2 + cos(angle*i)*radiusRand;
-    let y = height/2 + sin(angle*i)*radiusRand;
-    points[i] = createVector(x,y);
-  }
+			// agent = new Agent(
+			// 	element.location.x,
+			// 	element.location.y,
+			// 	element.location.x,
+			// 	element.location.y,
+			// 	random(0, Math.PI * 2),
+			// 	2,
+			// 	options.tileWidth,
+			// 	options.tileHeight);
+			// agent.neighborCells = element.neighborCells;
+			// agents.push(agent);
+		});
 
-  // Draw
-  // stroke(noise(t/10)*255,0,noise(t/1)*100,255);
-  strokeHsluv(noise(t/10)*360,noise(t/20)*50,noise(t)*80);
-  strokeWeight(20);
-  noFill();
-  beginShape();
-  for (let i=0; i<count; i++){
-    // fill(255);
-    // ellipse(points[i].x, points[i].y,2,2);
-    // noFill();
-    curveVertex(points[i].x, points[i].y);
-    if (i==0 || i==count-1) curveVertex(points[i].x, points[i].y);
-  }
-  endShape(CLOSE);
+		window.somethingChanged = false;
+	}
+
+	switch (mouseInputMode)
+	{
+		case 0:
+			window.somethingChanged = true;
+		break;
+		case 1:
+			window.somethingChanged = true;
+		break;
+		default:
+			window.somethingChanged = true;
+		break;
+	}
+
+	agents.forEach( function ( element, index, arr)
+	{
+		element.updateCycle();
+	});
 }
 
-
-function keyPressed() {
-  if (key == DELETE || key == BACKSPACE) background(360);  
-  if (key == 's' || key == 'S') saveThumb(650, 350);
+function keyPressed()
+{
+	if (key == 's' || key == 'S') saveThumb(650, 350);
+	if (key == ' ')
+	{
+		mouseInputMode ++;
+		if (mouseInputMode > 1)
+		{
+			mouseInputMode = 0;
+		}
+	}
+	if (key == 'd' || key == 'D')
+	{
+	}
+	if (key == 'a' || key == 'A')
+	{
+	}
 }
 
-// Color functions
-function fillHsluv(h, s, l) {
-  var rgb = hsluv.hsluvToRgb([h, s, l]);
-  fill(rgb[0] * 255, rgb[1] * 255, rgb[2] * 255);
+/**
+ * removes dead agents from agents array and returns the count or the agents
+ * that were removed
+ * @param  {Array}  arrayWithAgents array with active and dead agents
+ * @param  {Boolean} returnObjects    true if removed agents needed
+ * @return {Integer or Array}       returns Integer amount killed or Array
+ * with dead agents
+ */
+function cleanDeadAgents(arrayWithAgents, returnObjects = false)
+{
+	let killCount = 0;
+	let killedObjects = [];
+
+	arrayWithAgents.forEach( function(element, index, arr)
+	{
+		if (!element.agentAlive)
+		{
+			killedObjects.push(element);
+			killCount ++;
+			arr.splice(index, 1);
+		}
+	});
+
+	if (returnObjects)
+	{
+		return killedObjects;
+	}
+	else
+	{
+		return killCount;
+	}
 }
 
-function strokeHsluv(h, s, l) {
-  var rgb = hsluv.hsluvToRgb([h, s, l]);
-  stroke(rgb[0] * 255, rgb[1] * 255, rgb[2] * 255);
-}
+function spawnAgents()
+{
+	for (let y = 0; y * options.tileHeight < windowHeight; y++)
+	{
+		for(let x = 0; x * options.tileWidth < windowWidth; x++)
+		{
+			let agent;
+			let startX;
+			let startY;
 
-function colorHsluv(h, s, l) {
-  var rgb = hsluv.hsluvToRgb([h, s, l]);
-  return color(rgb[0] * 255, rgb[1] * 255, rgb[2] * 255);
+			startX = x * options.tileWidth + options.tileWidth / 2;
+			startY = y * options.tileHeight + options.tileHeight / 2;
+			for (let i = 0; i < options.numberOfAgents; i++)
+			{
+				let tileNrX = Math.floor(startX
+				/ options.tileWidth);
+				let tileNrY = Math.floor(startY
+					/ options.tileHeight);
+
+				let agent;
+
+				if (tileNrY % 2 == 0)
+				{
+					if (tileNrX % 2 == 0)
+					{
+						// first agent
+						agent = new ThreadAgent(
+							startX,
+							startY,
+							startX,
+							startY,
+							random(0, Math.PI * 2),
+							options.moveSpeed,
+							options.tileWidth,
+							options.tileHeight);
+					}
+					else
+					{
+						// alt
+						agent = new PulseAgent(
+							startX,
+							startY,
+							startX,
+							startY,
+							random(0, Math.PI * 2),
+							options.moveSpeed,
+							options.tileWidth,
+							options.tileHeight);
+					}
+				}
+				else
+				{
+					if (tileNrX % 2 != 0)
+					{
+						// first agent
+						agent = new RectangleAgent(
+							startX,
+							startY,
+							startX,
+							startY,
+							random(0, Math.PI * 2),
+							options.moveSpeed,
+							options.tileWidth,
+							options.tileHeight);
+					}
+					else
+					{
+						// alt
+						agent = new WormAgent(
+							startX,
+							startY,
+							startX,
+							startY,
+							random(0, Math.PI * 2),
+							options.moveSpeed,
+							options.tileWidth,
+							options.tileHeight);
+					}
+				}
+
+				// set tile infos
+				// set tile on the left
+				if (x > 0)
+				{
+					let tileInfo = new Tileinformation(
+						(x - 1) * options.tileWidth + options.tileWidth / 2,
+						startY);
+					agent.setNeighbor(
+						Agent.surroundingCellEnum.LEFT,
+						tileInfo);
+				}
+
+				// set tile on top
+				if (y > 0)
+				{
+					let tileInfo = new Tileinformation(
+						startX,
+						(y - 1) * options.tileHeight + options.tileHeight / 2);
+					agent.setNeighbor(
+						Agent.surroundingCellEnum.TOP,
+						tileInfo);
+				}
+
+				// set right neighbor
+				if ((x + 1) * options.tileWidth < windowWidth)
+				{
+					let tileInfo = new Tileinformation(
+						(x + 1) * options.tileWidth + options.tileWidth / 2,
+						startY);
+					agent.setNeighbor(
+						Agent.surroundingCellEnum.RIGHT,
+						tileInfo);
+				}
+
+				// set bottom neighbor
+				if ((y + 1) * options.tileHeight < windowHeight)
+				{
+					let tileInfo = new Tileinformation(
+						startX,
+						(y + 1) * options.tileHeight + options.tileHeight / 2);
+					agent.setNeighbor(
+						Agent.surroundingCellEnum.BOTTOM,
+						tileInfo);
+				}
+
+				// set tile on the top left corner
+				if (x > 0 && y > 0)
+				{
+					let tileInfo = new Tileinformation(
+						(x - 1) * options.tileWidth + options.tileWidth / 2,
+						(y - 1) * options.tileHeight + options.tileHeight / 2);
+					agent.setNeighbor(
+						Agent.surroundingCellEnum.TOPLEFTCORNER,
+						tileInfo);
+				}
+
+				// set tile on the top right corner
+				if (((x + 1) * options.tileWidth < windowWidth)
+					&& ((y - 1) * options.tileHeight < windowHeight))
+				{
+					let tileInfo = new Tileinformation(
+						(x + 1) * options.tileWidth + options.tileWidth / 2,
+						(y - 1) * options.tileHeight + options.tileHeight / 2);
+					agent.setNeighbor(
+						Agent.surroundingCellEnum.TOPRIGHTCORNER,
+						tileInfo);
+				}
+
+				// set tile on the bottom right corner
+				if (((x + 1) * options.tileWidth < windowWidth)
+					&& ((y + 1) * options.tileHeight < windowHeight))
+				{
+					let tileInfo = new Tileinformation(
+						(x + 1) * options.tileWidth + options.tileWidth / 2,
+						(y + 1) * options.tileHeight + options.tileHeight / 2);
+					agent.setNeighbor(
+						Agent.surroundingCellEnum.BOTTOMRIGHTCORNER,
+						tileInfo);
+				}
+
+				// set tile on the bottom left corner
+				if (((x - 1) * options.tileWidth < windowWidth)
+					&& ((y + 1) * options.tileHeight < windowHeight))
+				{
+					let tileInfo = new Tileinformation(
+						(x - 1) * options.tileWidth + options.tileWidth / 2,
+						(y + 1) * options.tileHeight + options.tileHeight / 2);
+					agent.setNeighbor(
+						Agent.surroundingCellEnum.BOTTOMLEFTCORNER,
+						tileInfo);
+				}
+
+				// push agent to array
+				agents.push(agent);
+			}
+		}
+	}
 }
 
 // Tools
 
 // resize canvas when the window is resized
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight, false);
+function windowResized()
+{
+	resizeCanvas(windowWidth, windowHeight, false);
+	window.somethingChanged = true;
 }
 
-//  conversion
-function toInt(value) {
-  return ~~value;
+// Int conversion
+function toInt(value)
+{
+	return ~~value;
 }
 
 // Timestamp
-function timestamp() {
-  return Date.now();
+function timestamp()
+{
+	return Date.now();
 }
 
 // Thumb
-function saveThumb(w, h) {
-  let img = get(width / 2 - w / 2, height / 2 - h / 2, w, h);
-  save(img, 'thumb.jpg');
+function saveThumb(w, h)
+{
+	let img = get( width/2-w/2, height/2-h/2, w, h);
+	save(img,'thumb.jpg');
 }
