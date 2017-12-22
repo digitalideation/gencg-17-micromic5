@@ -54,12 +54,6 @@ window.onload = function()
 		.min(0)
 		.max(100)
 		.step(1);
-	let timeToLive = window
-		.gui
-		.add(options, 'timeToLive')
-		.min(1)
-		.max(1000)
-		.step(1);
 	let tileWidth = window
 		.gui
 		.add(options, 'tileWidth')
@@ -72,12 +66,6 @@ window.onload = function()
 		.min(50)
 		.max(1000)
 		.step(1);
-	let randomPlacement = window
-		.gui
-		.add(options, "randomPlacement");
-	let useRadius = window
-		.gui
-		.add(options, "useRadius");
 	let sendToNeighbor = window
 		.gui
 		.add(options, "sendToNeighbor");
@@ -90,12 +78,9 @@ window.onload = function()
 	controllers.push(randomSeedOpt);
 	controllers.push(numberOfAgents);
 	controllers.push(agentFatness);
-	controllers.push(timeToLive);
 	controllers.push(tileWidth);
 	controllers.push(tileHeight);
 	controllers.push(backgroundAlpha);
-	controllers.push(randomPlacement);
-	controllers.push(useRadius);
 	controllers.push(sendToNeighbor);
 	controllers.push(bounceOffWindowBorder);
 	controllers.push(bounceOffLocalBorder);
