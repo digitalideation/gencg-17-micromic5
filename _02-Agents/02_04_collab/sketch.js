@@ -39,25 +39,6 @@ function draw()
 			element.drawLocation();
 		});
 
-		// clean and restart dead Agents
-		let amountKilled = cleanDeadAgents(agents, true);
-		amountKilled.forEach( function (element, index, arr)
-		{
-			// let agent;
-
-			// agent = new Agent(
-			// 	element.location.x,
-			// 	element.location.y,
-			// 	element.location.x,
-			// 	element.location.y,
-			// 	random(0, Math.PI * 2),
-			// 	2,
-			// 	options.tileWidth,
-			// 	options.tileHeight);
-			// agent.neighborCells = element.neighborCells;
-			// agents.push(agent);
-		});
-
 		window.somethingChanged = false;
 	}
 
@@ -205,71 +186,6 @@ function spawnAgents()
 							options.tileHeight);
 					break;
 				}
-				// let tileNrX = Math.floor(startX
-				// / options.tileWidth);
-				// let tileNrY = Math.floor(startY
-				// 	/ options.tileHeight);
-
-				// let agent;
-
-				// if (tileNrY % 2 == 0)
-				// {
-				// 	if (tileNrX % 2 == 0)
-				// 	{
-				// 		// first agent
-				// 		agent = new ThreadAgent(
-				// 			startX,
-				// 			startY,
-				// 			startX,
-				// 			startY,
-				// 			random(0, Math.PI * 2),
-				// 			options.moveSpeed,
-				// 			options.tileWidth,
-				// 			options.tileHeight);
-				// 	}
-				// 	else
-				// 	{
-				// 		// alt
-				// 		agent = new PulseAgent(
-				// 			startX,
-				// 			startY,
-				// 			startX,
-				// 			startY,
-				// 			random(0, Math.PI * 2),
-				// 			options.moveSpeed,
-				// 			options.tileWidth,
-				// 			options.tileHeight);
-				// 	}
-				// }
-				// else
-				// {
-				// 	if (tileNrX % 2 != 0)
-				// 	{
-				// 		// first agent
-				// 		agent = new RectangleAgent(
-				// 			startX,
-				// 			startY,
-				// 			startX,
-				// 			startY,
-				// 			random(0, Math.PI * 2),
-				// 			options.moveSpeed,
-				// 			options.tileWidth,
-				// 			options.tileHeight);
-				// 	}
-				// 	else
-				// 	{
-				// 		// alt
-				// 		agent = new WormAgent(
-				// 			startX,
-				// 			startY,
-				// 			startX,
-				// 			startY,
-				// 			random(0, Math.PI * 2),
-				// 			options.moveSpeed,
-				// 			options.tileWidth,
-				// 			options.tileHeight);
-				// 	}
-				// }
 
 				// set tile infos
 				// set tile on the left
