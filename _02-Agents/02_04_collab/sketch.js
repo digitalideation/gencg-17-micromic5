@@ -39,6 +39,9 @@ function draw()
 			element.drawLocation();
 		});
 
+		// clean and restart dead Agents
+		let amountKilled = cleanDeadAgents(agents, true);
+
 		window.somethingChanged = false;
 	}
 
