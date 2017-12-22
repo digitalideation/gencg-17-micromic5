@@ -28,6 +28,7 @@ class RectangleAgent extends MasterAgent
 		this.id = RectangleAgent.id;
 		this.SpawnBottom = true;
 		this.SpawnRight = true;
+		//detect if a collision happened
 		this.collisionHappened = false;
 		this.fatness = options.agentFatness;
 	}
@@ -283,6 +284,16 @@ class RectangleAgent extends MasterAgent
 		}
 
 		if (options.bounceOffLocalBorder
+			&& this.useRadius
+			&& (this.hitTop
+			|| this.hitBottom
+			|| this.hitLeft
+			|| this.hitRight))
+		{
+			// TODO
+			// using radius
+		}
+		else if (options.bounceOffLocalBorder
 			&& (this.hitTop
 			|| this.hitBottom
 			|| this.hitLeft

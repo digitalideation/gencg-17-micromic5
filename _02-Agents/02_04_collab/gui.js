@@ -2,8 +2,12 @@ let options = {
 	randomSeed: new Date().getTime() % 100000,
 	numberOfAgents: 2,
 	moveSpeed: 2,
+	// maxSpeed: 5,
 	agentFatness: 3,
+	// turnRadius: Math.PI/32,
 	timeToLive: 100,
+	// tileWidth: 200,
+	// tileHeight: 200,
 	tileWidth: 90,
 	tileHeight: 90,
 	agentColor: [66, 230, 220], //RGB
@@ -54,6 +58,12 @@ window.onload = function()
 		.min(0)
 		.max(100)
 		.step(1);
+	// let turnRadius = window
+		// .gui
+		// .add(options, 'turnRadius')
+		// .min(0)
+		// .max(PI/2)
+		// .step(Math.PI/128);
 	let timeToLive = window
 		.gui
 		.add(options, 'timeToLive')
@@ -90,9 +100,11 @@ window.onload = function()
 	controllers.push(randomSeedOpt);
 	controllers.push(numberOfAgents);
 	controllers.push(agentFatness);
+	// controllers.push(turnRadius);
 	controllers.push(timeToLive);
 	controllers.push(tileWidth);
 	controllers.push(tileHeight);
+	// controllers.push(moveSpeed);
 	controllers.push(backgroundAlpha);
 	controllers.push(randomPlacement);
 	controllers.push(useRadius);

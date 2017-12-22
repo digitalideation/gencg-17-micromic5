@@ -207,7 +207,67 @@ class ThreadAgent extends MasterAgent
 
 				// kill
 				this.agentAlive = false;
+
+				/*
+				if (this.angle > 0
+					&& (this.angle < Math.PI
+						|| this.angle > Math.PI * 3/2))
+				{
+					this.decrementAngle();
+				}
+				else
+					*/
+
+				// if (this.angle >= 0
+				// 	&& this.angle < (Math.PI / 2))
+				// {
+				// 	// bottom right direction
+				// 	// this.angle += angleStep;
+				// 	this.incrementAngle();
+				// }
+				// else if (this.angle >= (Math.PI / 2)
+				// 	&& this.angle < Math.PI)
+				// {
+				// 	// bottom left direction
+				// 	// this.angle += angleStep;
+				// 	this.incrementAngle();
+				// }
+				// else if (this.angle >= Math.PI
+				// 	&& this.angle < (2 * Math.PI * 2 / 3))
+				// {
+				// 	// top left direction
+				// 	// this.angle -= angleStep;
+				// 	this.incrementAngle();
+				// }
+				// else if (this.angle >= (2 * Math.PI * 2 / 3)
+				// 	&& this.angle < Math.PI * 2)
+				// {
+				// 	// top right direction
+				// 	// this.angle += angleStep;
+				// 	this.incrementAngle();
+				// }
+				// else
+				// {
+				// 	this.angle += angleStep;
+				// }
 			}
+			// if (newX < (this.location.x - this.radius))
+			// {
+			// 	newX = this.location.x - this.radius;
+			// }
+			// else if (newX > (this.location.x + this.radius))
+			// {
+			// 	newX = this.location.x + this.radius;
+			// }
+
+			// if (newY < (this.location.y - this.radius))
+			// {
+			// 	newY = this.location.y - this.radius;
+			// }
+			// else if (newY > (this.location.y + this.radius))
+			// {
+			// 	newY = this.location.y + this.radius;
+			// }
 			if (this.angle > Math.PI * 2 || this.angle < 0)
 			{
 				this.agentAlive = false;
@@ -261,6 +321,20 @@ class ThreadAgent extends MasterAgent
 			}
 			else if (options.sendToNeighbor)
 			{
+				// if wall is hit
+				// if (this.sendToNeighbor &&
+				// 	(this.hitTop
+				// 	|| this.hitBottom
+				// 	|| this.hitLeft
+				// 	|| this.hitRight)
+				// 	&& !(this.hitTopWindowBorder
+				// 		|| this.hitRightWindowBorder
+				// 		|| this.hitBottomWindowBorder
+				// 		|| this.hitLeftWindowBorder))
+				// {
+				// 	this.sendToNeighborCell(newX, newY);
+				// }
+				// if wall is hit
 				if ((this.hitTop
 					|| this.hitBottom
 					|| this.hitLeft
@@ -273,6 +347,23 @@ class ThreadAgent extends MasterAgent
 					this.sendToNeighborCell(newX, newY);
 				}
 			}
+
+			// if (this.angle >= 0 && this.angle < Math.PI / 2)
+			// {
+			// 	// bottom right direction
+			// }
+			// else if (this.angle >= Math.PI / 2 && this.angle < Math.PI)
+			// {
+			// 	// bottom left direction
+			// }
+			// else if (this.angle >= Math.PI && this.angle < 2 * Math.PI / 3)
+			// {
+			// 	// top left direction
+			// }
+			// else
+			// {
+			// 	// top right direction
+			// }
 
 			this.customBehaviour();
 		}
@@ -321,24 +412,31 @@ class ThreadAgent extends MasterAgent
 			this.hitTopWindowBorder = true;
 		}
 
-		// left local border
-		if (xCoord < (this.location.x - this.tileWidth / 2))
+		if (this.useRadius)
 		{
-			this.hitLeft = true;
+			// TODO
 		}
-		else if (xCoord > (this.location.x + this.tileWidth / 2))
+		else
 		{
-			this.hitRight = true;
-		}
+			// left local border
+			if (xCoord < (this.location.x - this.tileWidth / 2))
+			{
+				this.hitLeft = true;
+			}
+			else if (xCoord > (this.location.x + this.tileWidth / 2))
+			{
+				this.hitRight = true;
+			}
 
-		// top local Border
-		if (yCoord < (this.location.y - this.tileHeight / 2))
-		{
-			this.hitTop = true;
-		}
-		else if (yCoord > (this.location.y + this.tileHeight / 2))
-		{
-			this.hitBottom = true;
+			// top local Border
+			if (yCoord < (this.location.y - this.tileHeight / 2))
+			{
+				this.hitTop = true;
+			}
+			else if (yCoord > (this.location.y + this.tileHeight / 2))
+			{
+				this.hitBottom = true;
+			}
 		}
 	}
 
@@ -389,6 +487,16 @@ class ThreadAgent extends MasterAgent
 		}
 
 		if (options.bounceOffLocalBorder
+			&& this.useRadius
+			&& (this.hitTop
+			|| this.hitBottom
+			|| this.hitLeft
+			|| this.hitRight))
+		{
+			// TODO
+			// using radius
+		}
+		else if (options.bounceOffLocalBorder
 			&& !this.useRadius
 			&& (this.hitTop
 			|| this.hitBottom
